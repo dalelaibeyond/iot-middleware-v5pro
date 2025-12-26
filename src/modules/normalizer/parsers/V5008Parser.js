@@ -5,6 +5,17 @@ const Logger = require('../../../core/Logger');
  * Handles parsing of various V5008 IoT device message types
  */
 class V5008Parser {
+  static topicPattern = /V5008/i;
+
+  /**
+   * Check if this parser can handle the given topic
+   * @param {string} topic - MQTT topic to check
+   * @returns {boolean} True if this parser can handle the topic
+   */
+  static canHandle(topic) {
+    return this.topicPattern.test(topic);
+  }
+
   constructor() {
     this.logger = Logger;
   }

@@ -38,6 +38,7 @@ iot-middleware-v5/
 │   │   ├── mqtt-ingress/       # Inbound Data
 │   │   │   └── MqttService.js
 │   │   ├── normalizer/         # Business Logic (The Core)
+│   │   │   ├── ParserRegistry.js  # Dynamic Parser Loading
 │   │   │   ├── parsers/        # Adapters
 │   │   │   │   ├── V5008Parser.js
 │   │   │   │   └── V6800Parser.js
@@ -66,8 +67,9 @@ iot-middleware-v5/
 
 | File | Role |
 | --- | --- |
-| `app.js` | Bootstrapper. Loads config, connects DB, initializes enabled modules. |
+| `app.js` | Bootstrapper. Loads config, connects DB, initializes enabled modules with dynamic parser loading via ParserRegistry. |
 | `EventBus.js` | The nervous system. Decouples MQTT from Database and API. |
+| `ParserRegistry.js` | Central registry for dynamic parser discovery and topic-based routing. Manages V5008 and V6800 parsers. |
 | `V5008Parser.js` | Converts Binary Buffers $\to$ Standard Intermediate Format (SIF). |
 | `V6800Parser.js` | Converts Raw JSON $\to$ Standard Intermediate Format (SIF). |
 | `UnifyNormalizer.js` | Converts SIF $\to$ Standard Unified Objects (SUO). Handles State/Diffing. |

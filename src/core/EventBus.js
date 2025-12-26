@@ -152,6 +152,19 @@ class EventBus extends EventEmitter {
       }))
     };
   }
+
+  /**
+   * Clean up all event listeners
+   * Should be called during application shutdown
+   */
+  cleanup() {
+    const eventNames = this.eventNames();
+    this.removeAllListeners();
+    this.logger.info('EventBus: All listeners removed during cleanup', {
+      eventsCleared: eventNames.length,
+      events: eventNames
+    });
+  }
 }
 
 // Create and export singleton instance
