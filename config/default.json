@@ -1,0 +1,85 @@
+{
+  "mqtt": {
+    "brokerUrl": "mqtt://localhost:1883",
+    "username": "",
+    "password": "",
+    "clientId": "iot-middleware-v5",
+    "topics": [
+      "V5008Upload/+/#",
+      "V6800Upload/+/#"
+    ],
+    "options": {
+      "keepalive": 60,
+      "reconnectPeriod": 1000,
+      "connectTimeout": 30000,
+      "clean": true,
+      "encoding": "utf8"
+    }
+  },
+  "logging": {
+    "level": "info",
+    "console": true,
+    "file": true,
+    "maxFiles": 5,
+    "maxSize": "10m",
+    "datePattern": "YYYY-MM-DD"
+  },
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "iot_middleware",
+    "username": "root",
+    "password": "",
+    "connectionLimit": 10,
+    "acquireTimeout": 60000,
+    "timeout": 60000,
+    "reconnect": true,
+    "charset": "utf8mb4"
+  },
+  "api": {
+    "port": 3000,
+    "host": "0.0.0.0",
+    "cors": {
+      "origin": "*",
+      "methods": ["GET", "POST", "PUT", "DELETE"],
+      "allowedHeaders": ["Content-Type", "Authorization"]
+    },
+    "rateLimit": {
+      "windowMs": 900000,
+      "max": 100
+    }
+  },
+  "websocket": {
+    "port": 3001,
+    "host": "0.0.0.0",
+    "path": "/ws"
+  },
+  "modules": {
+    "mqtt-ingress": {
+      "enabled": true
+    },
+    "normalizer": {
+      "enabled": true,
+      "cache": {
+        "type": "memory",
+        "ttl": 3600000
+      }
+    },
+    "storage": {
+      "enabled": true,
+      "batchSize": 100,
+      "batchTimeout": 5000
+    },
+    "api": {
+      "enabled": true
+    },
+    "websocket": {
+      "enabled": true
+    }
+  },
+  "app": {
+    "name": "IoT Middleware V5",
+    "version": "1.0.0",
+    "environment": "development"
+  }
+}

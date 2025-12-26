@@ -1,0 +1,47 @@
+spec: 1.0.0
+info:
+  title: V6800 Parser Output Contract
+  description: The strict JSON structure produced by V6800Parser.js
+components:
+  schemas:
+    ParserOutput:
+      type: object
+      required:
+        - topic
+        - deviceType
+        - deviceId
+        - messageType
+        - messageId
+        - ts
+      properties:
+        topic:
+          type: string
+        deviceType:
+          type: string
+          const: "V6800"
+        deviceId:
+          type: string
+        messageType:
+          type: string
+          enum: ["HEARTBEAT", "LABEL_STATE", "TEM_HUM", "DOOR_STATE", "INIT", "OPE_ACK"]
+        rawMessageType:
+          type: string
+        messageId:
+          type: string
+        ts:
+          type: string
+          format: date-time
+        meta:
+          type: object
+          properties:
+            voltage: { type: number }
+            current: { type: number }
+            mainPower: { type: boolean }
+        modules:
+          type: array
+          items:
+            type: object
+            required: ["modAddr", "modId"]
+            properties:
+              modAddr: { type: integer }
+              modId: { type: string }
